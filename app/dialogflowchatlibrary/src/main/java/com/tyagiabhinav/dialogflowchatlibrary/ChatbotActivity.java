@@ -68,7 +68,7 @@ public class ChatbotActivity extends AppCompatActivity implements ChatbotCallbac
     private ImageView chatMic;
     private ImageView sendBtn;
 
-    //Variables
+    //Variables  변수
     private SessionsClient sessionsClient;
     private SessionName session;
     private TaskRunner dialogflowTaskRunner;
