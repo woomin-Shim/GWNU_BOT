@@ -15,5 +15,4 @@ public class TextMessageTemplate extends MessageLayoutTemplate {
     FrameLayout populateRichMessageContainer() {
         return null;
     }
-
 }

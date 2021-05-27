@@ -31,10 +31,9 @@ import com.google.cloud.dialogflow.v2.TextInput;
 import com.google.protobuf.Struct;
 import com.tyagiabhinav.dialogflowchatlibrary.networkutil.ChatbotCallback;
 import com.tyagiabhinav.dialogflowchatlibrary.networkutil.TaskRunner;
-import com.tyagiabhinav.dialogflowchatlibrary.templates.ButtonMessageTemplate;
+
 import com.tyagiabhinav.dialogflowchatlibrary.templates.CardMessageTemplate;
-import com.tyagiabhinav.dialogflowchatlibrary.templates.CarouselTemplate;
-import com.tyagiabhinav.dialogflowchatlibrary.templates.CheckBoxMessageTemplate;
+
 import com.tyagiabhinav.dialogflowchatlibrary.templates.HyperLinkTemplate;
 import com.tyagiabhinav.dialogflowchatlibrary.templates.TextMessageTemplate;
 import com.tyagiabhinav.dialogflowchatlibrary.templateutil.Constants;
@@ -119,6 +118,7 @@ public class ChatbotActivity extends AppCompatActivity implements ChatbotCallbac
             }
         });
 
+
         chatMic = findViewById(R.id.chatMic);
         if (chatSettings.isMicAvailable()) {
             // show mic
@@ -130,6 +130,7 @@ public class ChatbotActivity extends AppCompatActivity implements ChatbotCallbac
                 }
             });
         }
+
 
         queryEditText = findViewById(R.id.queryEditText);
         queryEditText.setOnKeyListener(new View.OnKeyListener() {
@@ -292,6 +293,8 @@ public class ChatbotActivity extends AppCompatActivity implements ChatbotCallbac
     private void processResponse(DetectIntentResponse response) {
         Log.d(TAG, "processResponse");
         if (response != null) {
+            //Dialogflow로부터 오는 응답 처리
+            //String botReply = response.getQueryResult().getFulfillmentText();
             List<Context> contextList = response.getQueryResult().getOutputContextsList();
             int layoutCount = chatLayout.getChildCount();
             if (contextList.size() > 0) {
@@ -301,59 +304,53 @@ public class ChatbotActivity extends AppCompatActivity implements ChatbotCallbac
                         if (paramMap.containsKey("template")) {
                             String template = context.getParameters().getFieldsMap().get("template").getStringValue();
                             switch (template) {
-                                case "text":
+                                /*case "text":
                                     Log.d(TAG, "processResponse: Text Template");
                                     TextMessageTemplate tmt = new TextMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
                                     chatLayout.addView(tmt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
                                     queryEditText.requestFocus();
                                     break;
-                                case "button":
-                                    Log.d(TAG, "processResponse: Button Template");
-                                    ButtonMessageTemplate bmt = new ButtonMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                                    chatLayout.addView(bmt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
-                                    queryEditText.setEnabled(false);
-                                    break;
+
+                                 */
+
                                 case "hyperlink":
                                     Log.d(TAG, "processResponse: Hyperlink Template");
                                     HyperLinkTemplate blt = new HyperLinkTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
                                     chatLayout.addView(blt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
                                     queryEditText.setEnabled(false);
                                     break;
-                                case "checkbox":
-                                    Log.d(TAG, "processResponse: CheckBox Template");
-                                    CheckBoxMessageTemplate cbmt = new CheckBoxMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                                    chatLayout.addView(cbmt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
-                                    queryEditText.setEnabled(false);
-                                    break;
-                                case "card":
+
+                                case "card":  //이미지 받을 떄
                                     Log.d(TAG, "processResponse: Card Template");
                                     CardMessageTemplate cmt = new CardMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
                                     chatLayout.addView(cmt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
                                     queryEditText.setEnabled(false);
                                     break;
-                                case "carousel":
-                                    Log.d(TAG, "processResponse: Carousel Template");
-                                    CarouselTemplate crt = new CarouselTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                                    chatLayout.addView(crt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
-                                    queryEditText.setEnabled(false);
-                                    break;
                             }
                         }
                     } else {
-                        // when no param context if found... go to default
-                        TextMessageTemplate tmt = new TextMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                        chatLayout.addView(tmt.showMessage(response));
-                        queryEditText.requestFocus();
+                            if(response.getQueryResult().getAction() == "Building") {
+                                Log.d(TAG, "processResponse: Card Template");
+                                CardMessageTemplate cmt = new CardMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
+                                chatLayout.addView(cmt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
+                                queryEditText.setEnabled(false);
+                            }
+                        else {
+                                TextMessageTemplate tmt = new TextMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
+                                chatLayout.addView(tmt.showMessage(response));
+                                queryEditText.requestFocus();
+                            }
                     }
                     if (chatLayout.getChildCount() > layoutCount) {
                         break; //this check is added as multiple layouts were getting added to chatLayout equal to number of loops
                     }
                 }
-            } else {
-                // when no param context if found... go to default
-                TextMessageTemplate tmt = new TextMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                chatLayout.addView(tmt.showMessage(response));
-                queryEditText.requestFocus();
+            } else {   //일반 텍스트 응답
+
+                    TextMessageTemplate tmt = new TextMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
+                    chatLayout.addView(tmt.showMessage(response));
+                    queryEditText.requestFocus();
+
             }
         } else {
             Log.e(TAG, "processResponse: Null Response");

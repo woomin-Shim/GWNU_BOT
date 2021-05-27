@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.cloud.dialogflow.v2.DetectIntentResponse;
+import com.google.protobuf.Struct;
 import com.google.protobuf.Value;
 import com.tyagiabhinav.dialogflowchatlibrary.R;
 import com.tyagiabhinav.dialogflowchatlibrary.networkutil.TaskRunner;
@@ -42,6 +43,8 @@ public class CardMessageTemplate extends MessageLayoutTemplate {
         final LinearLayout cardLayout = getCardLayout(null);
         LinearLayout btnLayout = getVerticalContainer();
         btnLayout.setFocusableInTouchMode(true);
+
+
         for (com.google.cloud.dialogflow.v2.Context context : contextList) {
             Map<String, Value> contextParam = context.getParameters().getFieldsMap();
             Map<String, Value> cardItems = (contextParam.get("cardItems") != null) ? contextParam.get("cardItems").getStructValue().getFieldsMap() : null;
@@ -50,9 +53,13 @@ public class CardMessageTemplate extends MessageLayoutTemplate {
             String sizeValue = context.getParameters().getFieldsMap().get("size").getStringValue();
             String eventName = context.getParameters().getFieldsMap().get("eventToCall").getStringValue();
 
-            if (cardItems != null) {
-                final String imgUrl = (cardItems.get("imgUrl") != null) ? cardItems.get("imgUrl").getStringValue() : null;
-                String title = (cardItems.get("title") != null) ? cardItems.get("title").getStringValue() : null;
+            ////
+            Map<String, Value> result = response.getQueryResult().getParameters().getFieldsMap();
+            Map<String, Value> img = (result.get("card") != null) ? result.get("card").getStructValue().getFieldsMap() : null;
+
+            if (img != null) {
+                final String imgUrl = (img.get("imgUrl") != null) ? img.get("imgUrl").getStringValue() : null;
+                String title = (img.get("title") != null) ? img.get("title").getStringValue() : null;
                 String description = (cardItems.get("description") != null) ? cardItems.get("description").getStringValue() : null;
                 TextView titleView = cardLayout.findViewById(R.id.title);
                 TextView descriptionView = cardLayout.findViewById(R.id.description);

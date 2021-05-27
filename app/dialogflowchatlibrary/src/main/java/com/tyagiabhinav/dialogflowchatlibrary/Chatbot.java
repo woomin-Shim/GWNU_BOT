@@ -52,13 +52,17 @@ public class Chatbot {
         this.chatUserAvatar = chatUserAvatar;
     }
 
+
     protected void setMicAvailable(boolean showMic) {
         this.showMic = showMic;
     }
 
+
+
     protected boolean isMicAvailable() {
         return this.showMic;
     }
+
 
     protected void setAutoWelcome(boolean doAutoWelcome) {
         this.doAutoWelcome = doAutoWelcome;
@@ -100,6 +104,7 @@ public class Chatbot {
             this.chatUserAvatar = chatUserAvatar;
             return this;
         }
+
 
         public ChatbotBuilder setShowMic(boolean showMic) {
             this.showMic = showMic;

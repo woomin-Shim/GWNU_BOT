@@ -67,6 +67,7 @@ public class ChatbotSettings {
         return this.mChatbot.getChatUserAvatar();
     }
 
+
     public boolean isMicAvailable() {
         return this.mChatbot.isMicAvailable();
     }

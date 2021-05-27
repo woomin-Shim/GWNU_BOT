@@ -70,15 +70,16 @@ public abstract class MessageLayoutTemplate extends FrameLayout {
 
         LayoutInflater inflater = LayoutInflater.from(context);
         theme = context.getTheme();
+
         switch (type) {
-            case Constants.BOT:
+            case Constants.BOT:   //봇 대화
                 msgLayout = (RelativeLayout) inflater.inflate(R.layout.bot_msg, null);
                 Drawable chatBotAvatar = ChatbotSettings.getInstance().getChatBotAvatar();
                 if (chatBotAvatar != null) {
                     ((ImageView) msgLayout.findViewById(R.id.botIcon)).setImageDrawable(chatBotAvatar);
                 }
                 break;
-            case Constants.USER:
+            case Constants.USER:  //사용자 대화
                 msgLayout = (RelativeLayout) inflater.inflate(R.layout.user_msg, null);
                 Drawable chatUserAvatar = ChatbotSettings.getInstance().getChatUserAvatar();
                 if (chatUserAvatar != null) {
@@ -86,6 +87,7 @@ public abstract class MessageLayoutTemplate extends FrameLayout {
                 }
                 break;
         }
+
 
         templateLinearLayout = msgLayout.findViewById(R.id.msgLinearLayout);
 
@@ -108,12 +110,12 @@ public abstract class MessageLayoutTemplate extends FrameLayout {
 
         this.response = response;
 
-        String botReply = "There was some communication issue. Please Try again!";
+        String botReply = "통신에 문제가 있습니다. 다시 시도해 주세요!";
         if (response != null) {
             // process aiResponse here
             botReply = response.getQueryResult().getFulfillmentText();
         }
-        Log.d(TAG, "V2 Bot Reply: " + botReply);
+        Log.d(TAG, "Bot Reply: " + botReply);
 
         templateLinearLayout.addView(populateTextView(botReply));
         return msgLayout;

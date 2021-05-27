@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openChatbot(View view) {
         // provide your Dialogflow's Google Credential JSON saved under RAW folder in resources
-        DialogflowCredentials.getInstance().setInputStream(getResources().openRawResource(R.raw.test_agent_credentials));
+        DialogflowCredentials.getInstance().setInputStream(getResources().openRawResource(R.raw.woom));
 
         ChatbotSettings.getInstance().setChatbot( new Chatbot.ChatbotBuilder()
 //                .setDoAutoWelcome(false) // True by Default, False if you do not want the Bot to greet the user Automatically. Dialogflow agent must have a welcome intent to handle this
