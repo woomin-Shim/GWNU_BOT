@@ -11,10 +11,10 @@
     <color name="chatSecondaryFocus">#F1F1F1</color>
     <color name="chatSecondaryPressed">#E9E9E9</color>
     <color name="chatSecondaryDisabled">#66FFFFFF</color>
-    <color name="botBGBubbleStroke">#FFCCCC</color>
-    <color name="botBGBubble">#FFCCCC</color>
-    <color name="userBGBubbleStroke">#CAE4F5</color>
-    <color name="userBGBubble">#CAE4F5</color>
+    <color name="botBGBubbleStroke">#FFFFFF</color>
+    <color name="botBGBubble">#FFFFFF</color>
+    <color name="userBGBubbleStroke">#FFFFFF</color>
+    <color name="userBGBubble">#FFFFFF</color>
     <color name="checkbox">#161616</color>
     <color name="statusBarColor">@color/chatPrimaryPressed</color>
     <color name="selectorBGColor">@color/chatPrimaryPressed</color>

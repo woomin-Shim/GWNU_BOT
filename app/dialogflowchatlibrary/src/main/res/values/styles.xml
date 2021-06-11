@@ -3,7 +3,7 @@
 
     <style name="Theme.Default" parent="Theme.AppCompat.Light">
         <item name="userAvatarBG">@color/userAvatarBG</item>
-        <item name="chatPrimary">@color/chatPrimary</item>
+        <item name="chatPrimary">@drawable/title</item>
         <item name="chatPrimaryFocus">@color/chatPrimaryFocus</item>
         <item name="chatPrimaryPressed">@color/chatPrimaryPressed</item>
         <item name="chatPrimaryDisabled">@color/chatPrimaryDisabled</item>

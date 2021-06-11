@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:theme="@style/Theme.Default">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="?attr/chatPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title=" GWNU AI BOT"
+        />
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3A3A3A"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".GuideActivity">
+
+
+    <View
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        />
+    <Button
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:background="@drawable/robot"
+        android:id="@+id/chatFab"
+        android:text=""
+        />
+    <View
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/uni"
+        android:onClick="gwnuButton"
+        />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/intra"
+        android:onClick="intraButton"
+        />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/echam"
+        android:onClick="echamButton"
+        />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/lib"
+        android:onClick="libButton"
+        />
+
+
+
+</LinearLayout>
+</RelativeLayout>
+
+    <!--    <com.caremark.caremarkbot.MovableFloatingActionButton-->
+    <!--        android:id="@+id/chatFab"-->
+    <!--        style="@style/ChatButton"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="70dp"-->
+    <!--        android:layout_gravity="end|bottom"-->
+    <!--        android:layout_marginBottom="16dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:padding="8dp"-->
+    <!--        android:src="@drawable/chat_fab_btn"-->
+    <!--        tools:ignore="VectorDrawableCompat"/>-->
+

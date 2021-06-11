@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#313232"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
 
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="90dp"
+        android:background="@drawable/ggg"
+        />
+    <View
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        />
+
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/gwnu_logo_02"
         android:id="@+id/chatFab"
-        android:text="Chat"
+        />
+    <View
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        />
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ui_4_4_big_white"
         />
 
 
@@ -27,4 +49,4 @@
 <!--        android:src="@drawable/chat_fab_btn"-->
 <!--        tools:ignore="VectorDrawableCompat"/>-->
 
-</RelativeLayout>
+</LinearLayout>

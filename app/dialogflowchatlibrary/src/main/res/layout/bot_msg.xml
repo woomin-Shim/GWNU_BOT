@@ -9,15 +9,14 @@
 
     <ImageView
         android:id="@+id/botIcon"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/chat_primary_background"
-        android:padding="4dp"
-        android:src="@drawable/chat_bot_avatar" />
+        android:background="@drawable/gwnu_logo_044"
+        android:padding="4dp" />
 
     <LinearLayout
         android:id="@+id/msgLinearLayout"
