@@ -7,28 +7,15 @@
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="366dp"
+        android:layout_height="301dp"
         android:layout_gravity="center_horizontal"
-        android:minWidth="70dp"
-        android:minHeight="52dp"
+        android:minWidth="100dp"
+        android:minHeight="70dp"
         android:scaleType="fitXY"
         android:src="@drawable/placeholder_image" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:padding="4dp"
-        android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:padding="4dp"
-        android:textSize="14sp" />
+
 
 </LinearLayout>

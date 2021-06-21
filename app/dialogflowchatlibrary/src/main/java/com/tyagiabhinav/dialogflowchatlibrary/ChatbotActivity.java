@@ -237,7 +237,7 @@ public class ChatbotActivity extends AppCompatActivity implements ChatbotCallbac
     private void sendMessage(View view) {
         String msg = queryEditText.getText().toString();
         if (msg.trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Please enter your query!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "질문을 입력해주세요!", Toast.LENGTH_LONG).show();
         } else {
             send(msg);
         }
@@ -297,55 +297,15 @@ public class ChatbotActivity extends AppCompatActivity implements ChatbotCallbac
             //String botReply = response.getQueryResult().getFulfillmentText();
             List<Context> contextList = response.getQueryResult().getOutputContextsList();
             int layoutCount = chatLayout.getChildCount();
-            if (contextList.size() > 0) {
-                for (Context context : contextList) {
-                    if (context.getName().contains("param_context")) {
-                        Map paramMap = context.getParameters().getFieldsMap();
-                        if (paramMap.containsKey("template")) {
-                            String template = context.getParameters().getFieldsMap().get("template").getStringValue();
-                            switch (template) {
-                                /*case "text":
-                                    Log.d(TAG, "processResponse: Text Template");
-                                    TextMessageTemplate tmt = new TextMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                                    chatLayout.addView(tmt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
-                                    queryEditText.requestFocus();
-                                    break;
 
-                                 */
+            // Dialogflow 부터 이미지를 받았을 때 처리
+            if(response.getQueryResult().getAction().equals("Building")) {
+                Log.d(TAG, "processResponse: Card Template");
+                CardMessageTemplate cmt = new CardMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
+                chatLayout.addView(cmt.showMessage(response)); // 이미지를 보여주기 위한 view
+            }
 
-                                case "hyperlink":
-                                    Log.d(TAG, "processResponse: Hyperlink Template");
-                                    HyperLinkTemplate blt = new HyperLinkTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                                    chatLayout.addView(blt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
-                                    queryEditText.setEnabled(false);
-                                    break;
-
-                                case "card":  //이미지 받을 떄
-                                    Log.d(TAG, "processResponse: Card Template");
-                                    CardMessageTemplate cmt = new CardMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                                    chatLayout.addView(cmt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
-                                    queryEditText.setEnabled(false);
-                                    break;
-                            }
-                        }
-                    } else {
-                            if(response.getQueryResult().getAction() == "Building") {
-                                Log.d(TAG, "processResponse: Card Template");
-                                CardMessageTemplate cmt = new CardMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                                chatLayout.addView(cmt.showMessage(response)); // move focus to text view to automatically make it scroll up if softfocus
-                                queryEditText.setEnabled(false);
-                            }
-                        else {
-                                TextMessageTemplate tmt = new TextMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
-                                chatLayout.addView(tmt.showMessage(response));
-                                queryEditText.requestFocus();
-                            }
-                    }
-                    if (chatLayout.getChildCount() > layoutCount) {
-                        break; //this check is added as multiple layouts were getting added to chatLayout equal to number of loops
-                    }
-                }
-            } else {   //일반 텍스트 응답
+            else {   //일반 텍스트 응답
 
                     TextMessageTemplate tmt = new TextMessageTemplate(ChatbotActivity.this, ChatbotActivity.this, Constants.BOT);
                     chatLayout.addView(tmt.showMessage(response));
@@ -360,8 +320,8 @@ public class ChatbotActivity extends AppCompatActivity implements ChatbotCallbac
     private void closeDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChatbotActivity.this);
 
-        alertDialogBuilder.setTitle("Exit Chat?");
-        alertDialogBuilder.setMessage("Do you want to exit the chat? You will loose this chat session.");
+        alertDialogBuilder.setTitle("챗봇을 종료하시겠습니까?");
+        alertDialogBuilder.setMessage("챗봇을 종료하시면 이 세션을 잃게 됩니다.");
 
         alertDialogBuilder
                 .setPositiveButton("Yes",

@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:padding="16dp"
+            android:autoLink="web|phone"
             android:text="abcdefgh"
             android:textColor="#585858"
             android:textSize="18sp" />

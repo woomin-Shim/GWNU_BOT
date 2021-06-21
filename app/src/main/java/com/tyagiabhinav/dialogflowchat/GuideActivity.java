@@ -38,7 +38,7 @@ public class GuideActivity extends AppCompatActivity {
 
     public void openChatbot(View view) {
         // provide your Dialogflow's Google Credential JSON saved under RAW folder in resources
-        DialogflowCredentials.getInstance().setInputStream(getResources().openRawResource(R.raw.woom));
+        DialogflowCredentials.getInstance().setInputStream(getResources().openRawResource(R.raw.woomin));
 
         ChatbotSettings.getInstance().setChatbot( new Chatbot.ChatbotBuilder()
 //                .setDoAutoWelcome(false) // True by Default, False if you do not want the Bot to greet the user Automatically. Dialogflow agent must have a welcome intent to handle this
@@ -55,7 +55,6 @@ public class GuideActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
 
     public void gwnuButton(View view){
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gwnu.ac.kr/sites/kor/index.do"));
@@ -76,5 +75,4 @@ public class GuideActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://iskul.gwnu.ac.kr/wonju/"));
         startActivity(intent);
     }
-
 }

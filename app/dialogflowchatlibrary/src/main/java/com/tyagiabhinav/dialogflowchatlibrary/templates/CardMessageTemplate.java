@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class CardMessageTemplate extends MessageLayoutTemplate {
 
-    private static final String TAG = CardMessageTemplate.class.getSimpleName();
+    //private static final String TAG = CardMessageTemplate.class.getSimpleName();
 
     public CardMessageTemplate(Context context, OnClickCallback callback, int type) {
         super(context, callback, type);
@@ -41,55 +41,18 @@ public class CardMessageTemplate extends MessageLayoutTemplate {
         LinearLayout cardContainer = getVerticalContainer();
 
         final LinearLayout cardLayout = getCardLayout(null);
-        LinearLayout btnLayout = getVerticalContainer();
-        btnLayout.setFocusableInTouchMode(true);
+        //LinearLayout btnLayout = getVerticalContainer();
+        //btnLayout.setFocusableInTouchMode(true);
 
-
-        for (com.google.cloud.dialogflow.v2.Context context : contextList) {
-            Map<String, Value> contextParam = context.getParameters().getFieldsMap();
-            Map<String, Value> cardItems = (contextParam.get("cardItems") != null) ? contextParam.get("cardItems").getStructValue().getFieldsMap() : null;
-            List<Value> buttonList = (contextParam.get("buttonItems") != null) ? contextParam.get("buttonItems").getListValue().getValuesList() : null;
-            String align = context.getParameters().getFieldsMap().get("align").getStringValue();
-            String sizeValue = context.getParameters().getFieldsMap().get("size").getStringValue();
-            String eventName = context.getParameters().getFieldsMap().get("eventToCall").getStringValue();
-
-            ////
-            Map<String, Value> result = response.getQueryResult().getParameters().getFieldsMap();
-            Map<String, Value> img = (result.get("card") != null) ? result.get("card").getStructValue().getFieldsMap() : null;
-
-            if (img != null) {
-                final String imgUrl = (img.get("imgUrl") != null) ? img.get("imgUrl").getStringValue() : null;
-                String title = (img.get("title") != null) ? img.get("title").getStringValue() : null;
-                String description = (cardItems.get("description") != null) ? cardItems.get("description").getStringValue() : null;
-                TextView titleView = cardLayout.findViewById(R.id.title);
-                TextView descriptionView = cardLayout.findViewById(R.id.description);
-                titleView.setMovementMethod(LinkMovementMethod.getInstance());
-                if (title != null) {
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        titleView.setText(Html.fromHtml(title, Html.FROM_HTML_MODE_LEGACY));
-                    } else {
-                        titleView.setText(Html.fromHtml(title));
-                    }
-                } else {
-                    titleView.setVisibility(GONE);
-                }
-
-                if (description != null) {
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        descriptionView.setText(Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY));
-                    } else {
-                        descriptionView.setText(Html.fromHtml(description));
-                    }
-                } else {
-                    descriptionView.setVisibility(GONE);
-                }
+        String picture = response.getQueryResult().getFulfillmentText(); //Flask로부터 url 받아오기
+        final String imgurl = picture;
 
                 Runnable downloadImage = new Runnable() {
                     @Override
                     public void run() {
                         Bitmap bmp = null;
                         try {
-                            InputStream in = new java.net.URL(imgUrl).openStream();
+                            InputStream in = new java.net.URL(imgurl).openStream();
                             bmp = BitmapFactory.decodeStream(in);
                         } catch (Exception e) {
                             Log.e("Image download error", e.getMessage());
@@ -109,22 +72,9 @@ public class CardMessageTemplate extends MessageLayoutTemplate {
                     }
                 };
                 new TaskRunner().executeTask(downloadImage);
-            }
-
-            if (align.equalsIgnoreCase("horizontal") || align.equalsIgnoreCase("h")) {
-                btnLayout = getHorizontalContainer();
-            }
-
-            if (buttonList != null) {
-                for (Value item : buttonList) {
-                    btnLayout.addView(getBtn("button", item.getStructValue().getFieldsMap(), sizeValue, eventName));
-                }
-            }
-        }
-        Log.d(TAG, "populateRichMessageContainer: btn layout count: " + btnLayout.getChildCount());
 
         cardContainer.addView(cardLayout);
-        cardContainer.addView(btnLayout);
+        //cardContainer.addView(btnLayout);
         richMessageContainer.addView(cardContainer);
 
         return richMessageContainer;
